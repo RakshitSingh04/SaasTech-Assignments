@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/entitymodel.xsd">
+    <!-- ========================================================= -->
+    <!-- ======================== Defaults ======================= -->
+    <!-- ========================================================= -->
+    <title>Entity of Relationshipmgr Component</title>
+    <description>None</description>
+    <copyright></copyright>
+    <version></version>
+
+    <entity entity-name="RelPartyType" package-name="org.apache.ofbiz.relationshipmgr" title="Relationship Party Type Entity">
+        <field name="partyTypeId" type="id"><description>primary sequenced ID</description></field>
+        <field name="description" type="description"></field>
+        <prim-key field="partyTypeId"/>
+    </entity>
+
+    <entity entity-name="RelParty" package-name="org.apache.ofbiz.relationshipmgr" title="Relationship Party Entity">
+        <field name="partyId" type="id"><description>Primary Sequenced ID</description></field>
+        <field name="partyTypeId" type="id"></field>
+        <field name="firstName" type="name"></field>
+        <field name="lastName" type="name"></field>
+        <field name="groupName" type="name"></field>
+        <prim-key field="partyId"/>
+        <relation type="one" fk-name="REL_PTY_TYPE" rel-entity-name="RelPartyType">
+            <key-map field-name="partyTypeId"/>
+        </relation>
+    </entity>
+
+    <entity entity-name="RelContactMechType" package-name="org.apache.ofbiz.relationshipmgr" title="Relationship Contact Mech Type Entity">
+        <field name="contactMechTypeId" type="id"><description>primary sequenced ID</description></field>
+        <field name="description" type="description"></field>
+        <prim-key field="contactMechTypeId"/>
+    </entity>
+
+    <entity entity-name="RelContactMech" package-name="org.apache.ofbiz.relationshipmgr" title="Relationship Contact Mech Entity">
+        <field name="contactMechId" type="id"><description>Primary Sequenced ID</description></field>
+        <field name="contactMechTypeId" type="id"></field>
+        <field name="infoString" type="value"></field>
+        <prim-key field="contactMechId"/>
+        <relation type="one" fk-name="REL_CM_TYPE" rel-entity-name="RelContactMechType">
+            <key-map field-name="contactMechTypeId"/>
+        </relation>
+    </entity>
+
+    <entity entity-name="RelPartyContactMech" package-name="org.apache.ofbiz.relationshipmgr" title="Relationship Party Contact Mech Entity">
+        <field name="partyId" type="id"></field>
+        <field name="contactMechId" type="id"></field>
+        <field name="fromDate" type="date-time"></field>
+        <field name="thruDate" type="date-time"></field>
+        <prim-key field="partyId"/>
+        <prim-key field="contactMechId"/>
+        <prim-key field="fromDate"/>
+        <relation type="one" fk-name="REL_PCM_PTY" rel-entity-name="RelParty">
+            <key-map field-name="partyId"/>
+        </relation>
+        <relation type="one" fk-name="REL_PCM_CM" rel-entity-name="RelContactMech">
+            <key-map field-name="contactMechId"/>
+        </relation>
+    </entity>
+</entitymodel>

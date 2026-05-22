@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-xml>
+    <!-- Party Types -->
+    <RelPartyType partyTypeId="COLLEGE" description="College"/>
+    <RelPartyType partyTypeId="DEPARTMENT" description="Department"/>
+    <RelPartyType partyTypeId="STUDENT" description="Student"/>
+    <RelPartyType partyTypeId="TEACHER" description="Teaching Staff"/>
+    
+    <!-- Contact Mech Types -->
+    <RelContactMechType contactMechTypeId="EMAIL_ADDRESS" description="Email Address"/>
+    <RelContactMechType contactMechTypeId="TELECOM_NUMBER" description="Telephone Number"/>
+</entity-engine-xml>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
+
+    <form name="FindRelParty" type="single" target="FindRelParty" default-entity-name="RelParty">
+        <field name="noConditionFind"><hidden value="Y"/></field>
+        <field name="partyId" title="Party ID"><text-find/></field>
+        <field name="firstName" title="First Name"><text-find/></field>
+        <field name="lastName" title="Last Name"><text-find/></field>
+        <field name="groupName" title="Group Name"><text-find/></field>
+        <field name="partyTypeId" title="Party Type">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" key-field-name="partyTypeId" entity-name="RelPartyType">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="searchButton" title="Find" widget-style="smallSubmit"><submit button-type="button" image-location="/images/icons/magnifier.png"/></field>
+    </form>
+
+    <form name="ListRelParty" type="list" list-name="listIt" paginate-target="FindRelParty" default-entity-name="RelParty" separate-columns="true"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="relPartyCtx"/>
+                <field-map field-name="entityName" value="RelParty"/>
+                <field-map field-name="orderBy" from-field="parameters.sortField"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
+            </service>
+        </actions>
+        <field name="partyId" title="Party ID"><display/></field>
+        <field name="partyTypeId" title="Type"><display-entity entity-name="RelPartyType"/></field>
+        <field name="firstName" title="First Name" sort-field="true"><display/></field>
+        <field name="lastName" title="Last Name" sort-field="true"><display/></field>
+        <field name="groupName" title="Group Name" sort-field="true"><display/></field>
+        <field name="addContactMech" title="Add Contact" widget-style="buttontext">
+            <hyperlink description="Add Contact Mech" target="AddRelPartyContactMech">
+                <parameter param-name="partyId"/>
+            </hyperlink>
+        </field>
+    </form>
+
+    <form name="AddRelParty" type="single" target="createRelPartyEvent">
+        <auto-fields-service service-name="createRelParty"/>
+        <field name="partyTypeId" title="Party Type">
+            <drop-down allow-empty="false">
+                <entity-options description="${description}" key-field-name="partyTypeId" entity-name="RelPartyType">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="Add"><submit button-type="button"/></field>
+    </form>
+
+    <!-- Adding a Contact Mech. We will have a separate screen to link an existing party to a new contact mech -->
+    <form name="AddRelPartyContactMech" type="single" target="createRelPartyContactMechEvent">
+        <field name="partyId"><hidden value="${parameters.partyId}"/></field>
+        <field name="contactMechTypeId" title="Contact Type">
+            <drop-down allow-empty="false">
+                <entity-options description="${description}" key-field-name="contactMechTypeId" entity-name="RelContactMechType">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="infoString" title="Contact Detail" required-field="true"><text/></field>
+        <field name="submitButton" title="Add Contact Mechanism"><submit button-type="button"/></field>
+    </form>
+
+</forms>

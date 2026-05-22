@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-xml>
+    <!-- Sample Parties -->
+    <RelParty partyId="COL_ENG" partyTypeId="COLLEGE" groupName="College of Engineering"/>
+    <RelParty partyId="DEPT_CS" partyTypeId="DEPARTMENT" groupName="Computer Science Department"/>
+    <RelParty partyId="STUD_01" partyTypeId="STUDENT" firstName="John" lastName="Doe"/>
+    <RelParty partyId="TCH_01" partyTypeId="TEACHER" firstName="Jane" lastName="Smith"/>
+    
+    <!-- Sample Contact Mechanisms -->
+    <RelContactMech contactMechId="CM_EMAIL_01" contactMechTypeId="EMAIL_ADDRESS" infoString="john.doe@example.com"/>
+    <RelContactMech contactMechId="CM_PHONE_01" contactMechTypeId="TELECOM_NUMBER" infoString="+1-555-1234"/>
+    <RelContactMech contactMechId="CM_EMAIL_02" contactMechTypeId="EMAIL_ADDRESS" infoString="jane.smith@example.com"/>
+
+    <!-- Map Parties to Contact Mechanisms -->
+    <RelPartyContactMech partyId="STUD_01" contactMechId="CM_EMAIL_01" fromDate="2023-01-01 00:00:00"/>
+    <RelPartyContactMech partyId="STUD_01" contactMechId="CM_PHONE_01" fromDate="2023-01-01 00:00:00"/>
+    <RelPartyContactMech partyId="TCH_01" contactMechId="CM_EMAIL_02" fromDate="2022-08-01 00:00:00"/>
+</entity-engine-xml>
